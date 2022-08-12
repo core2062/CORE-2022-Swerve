@@ -73,8 +73,8 @@ constexpr double kPRearRightVel = 0.5;
 } // namespace DriveConstants
 
 namespace ModuleConstants {
-constexpr int kEncoderCPR = 1024;
-constexpr double kWheelDiameterMeters = 0.15;
+constexpr int kEncoderCPR = 2048;
+constexpr double kWheelDiameterMeters = 0.100584;
 constexpr double kDriveEncoderDistancePerPulse = 
     // Assumes the encoders are directly mounted on the wheel shafts
     (kWheelDiameterMeters * wpi::numbers::pi) / 
