@@ -4,13 +4,13 @@
 
 #pragma once
 
-#include <frc/Encoder.h>
 #include <frc/controller/PIDController.h>
 #include <frc/controller/ProfiledPIDController.h>
 #include <frc/geometry/Rotation2d.h>
 #include <frc/kinematics/SwerveModuleState.h>
 #include <frc/motorcontrol/Spark.h>
 #include <frc/trajectory/TrapezoidProfile.h>
+#include <ctre/Phoenix.h>
 #include <wpi/numbers>
 
 #include "Constants.h"
@@ -46,7 +46,7 @@ private:
 frc::Spark m_driveMotor;
 frc::Spark m_turningMotor;
 
-frc::Encoder m_driveEncoder;
+CANCoder m_driveEncoder;
 frc::Encoder m_turningEncoder;
 
 bool m_reverseDriveEncoder;

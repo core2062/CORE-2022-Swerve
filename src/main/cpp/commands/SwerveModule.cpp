@@ -38,8 +38,15 @@ SwerveModule::SwerveModule(int driveMotorChannel, int turningMotorChannel,
       units::radian_t(-wpi::numbers::pi), units::radian_t(wpi::numbers::pi));
 }
 
+double nativeUnitsToDistanceMeters(double sensorCounts){
+    double motorRotations = (double)sensorCounts / ModuleConstants::kEncoderCPR;
+    double wheelRotations = motorRotations / 8.14;
+    double positionMeters = wheelRotations * (3.1415926535897932384626 * ModuleConstants::kWheelDiameterMeters);
+    return positionMeters;
+  }
+
 frc::SwerveModuleState SwerveModule::GetState() {
-  return {units::meters_per_second_t{m_driveEncoder.GetRate()},
+  return {units::meters_per_second_t{nativeUnitsToDistanceMeters(m_driveEncoder.getPosition())},
           frc::Rotation2d(units::radian_t(m_turningEncoder.Get()))};
 }
 
