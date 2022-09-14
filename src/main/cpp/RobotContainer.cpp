@@ -31,13 +31,22 @@ RobotContainer::RobotContainer() {
 
   
   m_drive.SetDefaultCommand(frc2::RunCommand(
-      [this] {
-        m_drive.Drive(
-            units::meters_per_second_t(m_driverController.GetY()),
-            units::meters_per_second_t(m_driverController.GetX()),
-            units::radians_per_second_t(m_driverController.GetX()), false);
-      },
-      {&m_drive}));
+        [this] {
+            if(abs(m_driverController.GetY())>0.05||abs(m_driverController.GetX())>0.05||abs(m_driverController.GetZ())>0.50){
+            m_drive.Drive(
+                units::meters_per_second_t(m_driverController.GetY()),
+                units::meters_per_second_t(m_driverController.GetX()),
+                units::radians_per_second_t(m_driverController.GetZ()), false);
+            } else {
+                m_drive.Drive(
+                    units::meters_per_second_t(0),
+                    units::meters_per_second_t(0),
+                    units::radians_per_second_t(0), false);
+            }
+
+        },
+        {&m_drive}));
+    
 }
 
 void RobotContainer::ConfigureButtonBindings() {}
