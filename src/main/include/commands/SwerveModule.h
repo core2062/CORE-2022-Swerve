@@ -22,7 +22,7 @@ class SwerveModule {
 
     public:
         SwerveModule(int driveMotorChannel, int turningMotorCHannel,
-                    const int driveEncoder[2], const int turningEncoderPorts[2],
+                    const int driveEncoder[1], const int turningEncoderPorts[1],
                     bool driveEncoderReversed, bool turningEncoderReversed);
 
     frc::SwerveModuleState GetState();
@@ -43,11 +43,11 @@ private:
             units::unit_t<radians_per_second_squared_t>(
                     wpi::numbers::pi * 2.0); // radians per second squared
 
-frc::Spark m_driveMotor;
-frc::Spark m_turningMotor;
+TalonFX m_driveMotor;
+TalonFX m_turningMotor;
 
-CANCoder m_driveEncoder;
-frc::Encoder m_turningEncoder;
+TalonFX m_driveEncoder;
+CANCoder m_turningEncoder;
 
 bool m_reverseDriveEncoder;
 bool m_reverseTurningEncoder;
@@ -60,3 +60,7 @@ frc2::PIDController m_drivePIDController{
       0.0,
       {kModuleMaxAngularVelocity, kModuleMaxAngularAcceleration}};
 };
+
+
+
+//frc::Encoder
