@@ -16,25 +16,27 @@ using namespace DriveConstants;
 DriveSubsystem::DriveSubsystem()
     : m_frontLeft{kFrontLeftDriveMotorPort,
                   kFrontLeftTurningMotorPort,
-                  kFrontLeftDriveEncoderPorts,
                   kFrontLeftTurningEncoderPorts,
                   kFrontLeftDriveEncoderReversed,
                   kFrontLeftTurningEncoderReversed},
 
-      m_rearLeft{
-          kRearLeftDriveMotorPort,       kRearLeftTurningMotorPort,
-          kRearLeftDriveEncoderPorts,    kRearLeftTurningEncoderPorts,
-          kRearLeftDriveEncoderReversed, kRearLeftTurningEncoderReversed},
+      m_rearLeft{kRearLeftDriveMotorPort, 
+                 kRearLeftTurningMotorPort,  
+                 kRearLeftTurningEncoderPorts,
+                 kRearLeftDriveEncoderReversed, 
+                 kRearLeftTurningEncoderReversed},
 
-      m_frontRight{
-          kFrontRightDriveMotorPort,       kFrontRightTurningMotorPort,
-          kFrontRightDriveEncoderPorts,    kFrontRightTurningEncoderPorts,
-          kFrontRightDriveEncoderReversed, kFrontRightTurningEncoderReversed},
+      m_frontRight{kFrontRightDriveMotorPort,       
+                 kFrontRightTurningMotorPort,
+                 kFrontRightTurningEncoderPorts,
+                 kFrontRightDriveEncoderReversed, 
+                 kFrontRightTurningEncoderReversed},
 
-      m_rearRight{
-          kRearRightDriveMotorPort,       kRearRightTurningMotorPort,
-          kRearRightDriveEncoderPorts,    kRearRightTurningEncoderPorts,
-          kRearRightDriveEncoderReversed, kRearRightTurningEncoderReversed},
+      m_rearRight{kRearRightDriveMotorPort,       
+                 kRearRightTurningMotorPort,    
+                 kRearRightTurningEncoderPorts,
+                 kRearRightDriveEncoderReversed, 
+                 kRearRightTurningEncoderReversed},
 
       m_odometry{kDriveKinematics, m_gyro.GetRotation2d(), frc::Pose2d()} {}
 
@@ -50,9 +52,7 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
                            units::radians_per_second_t rot,
                            bool fieldRelative) {
   auto states = kDriveKinematics.ToSwerveModuleStates(
-      fieldRelative ? frc::ChassisSpeeds::FromFieldRelativeSpeeds(
-                          xSpeed, ySpeed, rot, m_gyro.GetRotation2d())
-                    : frc::ChassisSpeeds{xSpeed, ySpeed, rot});
+      fieldRelative ? frc::ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_gyro.GetRotation2d()) : frc::ChassisSpeeds{xSpeed, ySpeed, rot});
  
   kDriveKinematics.DesaturateWheelSpeeds(&states, AutoConstants::kMaxSpeed);
 

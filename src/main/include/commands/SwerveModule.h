@@ -21,8 +21,8 @@ class SwerveModule {
                               units::inverse<units::squared<units::second>>>;
 
     public:
-        SwerveModule(int driveMotorChannel, int turningMotorCHannel,
-                    const int driveEncoder[1], const int turningEncoderPorts[1],
+        SwerveModule(int driveMotorChannel, int turningMotorChannel,
+                    const int turningEncoderPorts,
                     bool driveEncoderReversed, bool turningEncoderReversed);
 
     frc::SwerveModuleState GetState();
@@ -46,7 +46,6 @@ private:
 TalonFX m_driveMotor;
 TalonFX m_turningMotor;
 
-TalonFX m_driveEncoder;
 CANCoder m_turningEncoder;
 
 bool m_reverseDriveEncoder;
