@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <iostream>
+
 #include <AHRS.h>
 #include <frc/Encoder.h>
 #include <frc/drive/MecanumDrive.h>

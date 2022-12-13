@@ -49,8 +49,8 @@ constexpr bool kRearRightTurningEncoderReversed = true;
 
 constexpr int kFrontLeftDriveEncoderPorts = 0;
 constexpr int kRearLeftDriveEncoderPorts = 2;
-constexpr int kFrontRightDriveEncoderPorts[]{4};
-constexpr int kRearRightDriveEncoderPorts[]{6};
+constexpr int kFrontRightDriveEncoderPorts = 4;
+constexpr int kRearRightDriveEncoderPorts = 6;
 
 constexpr bool kFrontLeftDriveEncoderReversed = false;
 constexpr bool kRearLeftDriveEncoderReversed = true;
@@ -85,7 +85,7 @@ constexpr double kTurningEncoderDistancePerPulse =
     (wpi::numbers::pi * 2) / static_cast<double>(kEncoderCPR);
 
 constexpr double kPModuleTurningController = 1;
-constexpr double kPModuleDriveController = 1;
+constexpr double kPModuleDriveController = 0.01;
 } // namespace ModuleConstants
 
 namespace AutoConstants {

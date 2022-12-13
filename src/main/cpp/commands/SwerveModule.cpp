@@ -20,7 +20,9 @@ SwerveModule::SwerveModule(int driveMotorChannel, int turningMotorChannel,
       m_reverseTurningEncoder(turningEncoderReversed) {
   // Set the distance per pulse for the drive encoder. We can simply use the
   // distance traveled for one rotation of the wheel divided by the encoder
-  // resolution. 
+  // resolution.
+  // m_driveMotor 
+  m_driveMotor.SetSelectedSensorPosition(0,0,50);
   /*
   m_driveEncoder.SetDistancePerPulse(
       ModuleConstants::kDriveEncoderDistancePerPulse);
@@ -36,7 +38,7 @@ SwerveModule::SwerveModule(int driveMotorChannel, int turningMotorChannel,
   // to be continuous.
   m_turningPIDController.EnableContinuousInput(
       units::radian_t(-wpi::numbers::pi), units::radian_t(wpi::numbers::pi));
-      m_driveMotor.SetStatusFramePeriod(StatusFrameEnhanced::Status_1_General, 10 , 0);
+  m_driveMotor.SetStatusFramePeriod(StatusFrameEnhanced::Status_1_General, 10 , 0);
 
 }
 
@@ -44,6 +46,7 @@ double nativeUnitsToDistanceMeters(double sensorCounts){
     double motorRotations = (double)sensorCounts / ModuleConstants::kEncoderCPR;
     double wheelRotations = motorRotations / 8.14;
     double positionMeters = wheelRotations * (3.1415926535897932384626 * ModuleConstants::kWheelDiameterMeters);
+    // std::cout << "Pos Meters: " << positionMeters << "\n";
     return positionMeters;
   }
 
@@ -58,13 +61,18 @@ void SwerveModule::SetDesiredState(
   const auto state = frc::SwerveModuleState::Optimize(
       referenceState, units::radian_t(m_turningEncoder.GetPosition()));
 
+    std::cout << "Speed of wheel module: " << state.speed.value() << "\n";
+    std::cout << "Encoder: " << m_driveMotor.GetSelectedSensorPosition(0) << "\n";
+  
   // Calculate the drive output from the drive PID controller.
   const auto driveOutput = m_drivePIDController.Calculate(
       m_driveMotor.GetSelectedSensorPosition(0), state.speed.value());
+    std::cout << "Drive Output: " << driveOutput << "\n";
 
   // Calculate the turning motor output from the turning PID controller.
   auto turnOutput = m_turningPIDController.Calculate(
       units::radian_t(m_turningEncoder.GetPosition()), state.angle.Radians());
+    // std::cout << "Turn Output: " << turnOutput << "\n";
 
   // Set the motor outputs.
   m_driveMotor.Set(ControlMode::PercentOutput, driveOutput);
@@ -72,6 +80,6 @@ void SwerveModule::SetDesiredState(
 }
 
 void SwerveModule::ResetEncoders() {
-  m_driveMotor.SetSelectedSensorPosition(0.0, 0, 25);
+  m_driveMotor.SetSelectedSensorPosition(0.0, 0, 50);
 }
 

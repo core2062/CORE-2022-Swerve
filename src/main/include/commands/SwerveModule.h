@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <iostream>
+
 #include <frc/controller/PIDController.h>
 #include <frc/controller/ProfiledPIDController.h>
 #include <frc/geometry/Rotation2d.h>

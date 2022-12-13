@@ -54,13 +54,19 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
   auto states = kDriveKinematics.ToSwerveModuleStates(
       fieldRelative ? frc::ChassisSpeeds::FromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_gyro.GetRotation2d()) : frc::ChassisSpeeds{xSpeed, ySpeed, rot});
  
+  
+
   kDriveKinematics.DesaturateWheelSpeeds(&states, AutoConstants::kMaxSpeed);
 
   auto [fl, fr, bl, br] = states;
 
+  std::cout << "FRONT LEFT\n";
   m_frontLeft.SetDesiredState(fl);
+  std::cout << "\n\nFRONT RIGHT\n";
   m_frontRight.SetDesiredState(fr);
+  std::cout << "\n\nBACK LEFT\n";
   m_rearLeft.SetDesiredState(bl);
+  std::cout << "\n\nBACK RIGHT\n";
   m_rearRight.SetDesiredState(br);
 }
 
